@@ -105,7 +105,7 @@ def multi_threading(
     return final_output
 
 
-def dumps_the_json(content: dict, json_file_name: str):
+def dumps_the_json(content: dict, json_file_name: str, ascii_bool: bool = False):
     """
     Given the content:dict and json_file_name,
     return json file in the project path
@@ -116,7 +116,7 @@ def dumps_the_json(content: dict, json_file_name: str):
 
     """
     with open(json_file_name, "w") as file:
-        json.dump(content, file)
+        json.dump(content, file, ensure_ascii=ascii_bool)
 
 
 def read_the_json(json_file: str):
