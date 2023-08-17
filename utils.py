@@ -133,7 +133,11 @@ def read_the_json(json_file: str):
 
 
 def jsonl_converter(
-    json_file_path: str, json_l_file_path: str, col_1_name: str, col_2_name: str
+    json_file_path: str,
+    json_l_file_path: str,
+    col_1_name: str,
+    col_2_name: str,
+    ascii_bool=False,
 ):
     with open(json_file_path, "r") as input_file:
         data = json.load(input_file)
@@ -141,5 +145,7 @@ def jsonl_converter(
     with open(json_l_file_path, "w") as output_file:
         for index, col in zip(data[col_1_name], data[col_2_name]):
             if col is not None:
-                output_line = json.dumps({"index": index, "col": col})
+                output_line = json.dumps(
+                    {"index": index, "col": col}, ensure_ascii=ascii_bool
+                )
                 output_file.write(output_line + "\n")
