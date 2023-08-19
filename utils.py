@@ -170,6 +170,6 @@ def jsonl_converter(
         for index, col in zip(data[col_1_name], data[col_2_name]):
             if col is not None and col != "":
                 output_line = json.dumps(
-                    {"index": index, "col": col}, ensure_ascii=ascii_bool
+                    {"header": index, "content": col}, ensure_ascii=ascii_bool
                 )
                 output_file.write(output_line + "\n")
