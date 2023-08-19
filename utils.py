@@ -139,12 +139,36 @@ def jsonl_converter(
     col_2_name: str,
     ascii_bool=False,
 ):
+    """
+    Given json file with the following orientation
+
+    {
+        "key_1" : ["a", "b", "c"]
+        "key_2" : ["gg", "kk", "ll"]
+    }
+
+    Return jsonl file with the following orientation
+
+    {"key_1": "a", "key_2", "gg"}
+
+    {"key_1": "b", "key_2", "kk"}
+
+    {"key_1": "c", "key_2", "ll"}
+
+    By default, ensure_ascii is False (keep the original onicode format)
+
+    ::param json_file_path:str
+    ::param json_l_file_path:str
+    ::param col_1_name:str
+    ::param col_2_name:str
+    ::ascii_bool:bool = False
+    """
     with open(json_file_path, "r") as input_file:
         data = json.load(input_file)
 
     with open(json_l_file_path, "w") as output_file:
         for index, col in zip(data[col_1_name], data[col_2_name]):
-            if col is not None:
+            if col is not None and col != "":
                 output_line = json.dumps(
                     {"index": index, "col": col}, ensure_ascii=ascii_bool
                 )
